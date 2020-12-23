@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+        table,th,td{
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+        th,td{
+            padding: 15px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <input type="text" onkeyup="Goster()" placeholder="Malın qiymətini daxil edin.." id="qiymet" /> <br />
+    <input type="number" step="1" style="display: none;" onkeyup="Hesabla()" placeholder="Malın Sayını daxil edin.." id="say" /><br />
+
+    <hr />
+    <div id="xeberdarliq"></div>
+    <table>
+        <tr>
+            <th>Qiymət</th>
+            <th>Say</th>
+            <th>Ümumi Cəm</th>
+            <th>ƏDV (18%)</th>
+            <th>Ümumi ödəniləcək məbləq</th>
+        </tr>
+        <tr>
+            <td id="qym"></td>
+            <td id="sy"></td>
+            <td id="uc"></td>
+            <td id="edv"></td>
+            <td id="uom"></td>
+        </tr>
+    </table>
+
+    <script>
+
+
+        function Hesabla(){
+            let qiymet = Number(document.getElementById("qiymet").value);
+            let say = Number(document.getElementById("say").value);
+            say = Math.floor(say);
+
+            if(say >= 1000 && qiymet > 0){
+                qiymet = (qiymet - ((qiymet*10)/100));
+                document.getElementById("xeberdarliq").innerHTML =
+                 `<p style="background-color:orange; padding:20px;">10% endirim şamil olundu</p>`;
+                 //setTimeout(XeberdarliqGizlet,3000);
+            }
+
+
+            let uc = qiymet*say;
+            let edv = (uc*18)/100;
+            let uom = uc + edv;
+            document.getElementById("qym").innerHTML = qiymet + " AZN";
+            document.getElementById("sy").innerHTML = say;
+            document.getElementById("uc").innerHTML = uc + " AZN";
+            document.getElementById("edv").innerHTML = edv+ " AZN";
+            document.getElementById("uom").innerHTML = uom + " AZN";
+        }
+
+        function Goster(){
+            document.getElementById("say").style.display = "block";
+        }
+
+        function XeberdarliqGizlet(){
+            document.getElementById("xeberdarliq").style.display = "none";
+        }
+
+    </script>
+</body>
+</html>
